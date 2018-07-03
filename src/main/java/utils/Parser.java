@@ -16,11 +16,14 @@ public class Parser {
     public static void main(String[] args) {
         try {
             Document doc = Jsoup.connect("http://www.zoo-zoo.ru/").get();
-            Elements elements = doc.getElementsByAttributeValue("class","media-wrapper");
+            Elements elements = doc.getElementsByAttributeValue("class", "media-wrapper");
 
-            elements.forEach(element ->{
-                Elements aElement =  element.getElementsByTag("a");
-
+            elements.forEach(element -> {
+                        Elements hElements = element.getElementsByClass("list_title");
+                        for (Element helem : hElements) {
+                            System.out.println(helem.attr("title"));
+                            System.out.println(helem.attr("href"));
+                        }
                     }
             );
         } catch (IOException e) {
