@@ -15,7 +15,7 @@ public class Parser {
 
     public static void main(String[] args) {
         try {
-            Document doc = Jsoup.connect("http://www.zoo-zoo.ru/").get();
+            Document doc = Jsoup.connect("http://www.zoo-zoo.ru/").proxy("proxy-gf.esbt.loc",3128).get();
             Elements elements = doc.getElementsByAttributeValue("class", "media-wrapper ");
 //            System.out.println(elements);
             elements.forEach(element -> {
