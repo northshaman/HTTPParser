@@ -1,9 +1,11 @@
 package config;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
 
 /**
  * Main Java Configuration class
@@ -13,4 +15,13 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan({"services","utils"})
 @Import(DBConfig.class)
 public class AppConfig {
+
+    @Bean
+    public WebDriver getPhantomJSWebDriver(@Value("${phantomJS.path}") String phantomSystemPath){
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setJavascriptEnabled(true);
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomSystemPath);
+        return new PhantomJSDriver(caps);
+    }
+
 }
