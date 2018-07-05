@@ -32,6 +32,13 @@
             <version>${selenium.version}</version>
         </dependency>
 
+        <!--PHANTOM DRIVER-->
+        <dependency>
+        <groupId>com.github.detro.ghostdriver</groupId>
+        <artifactId>phantomjsdriver</artifactId>
+        <version>1.0.1</version>
+        </dependency>
+
         <!--SPRING-->
         <dependency>
             <groupId>org.springframework</groupId>
