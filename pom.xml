@@ -11,34 +11,23 @@
     <groupId>com.shaman</groupId>
     <artifactId>HTTPParser</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
-
+        <!--Logger-->
         <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.11.3</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
 
+        <!--Selenium-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.13.0</version>
         </dependency>
 
-
+        <!--Tests-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -46,13 +35,34 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.detro.ghostdriver</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>1.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
+            <!--<artifactId>phantomjsdriver</artifactId>-->
+            <!--<version>1.0.1</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration><encoding>UTF-8</encoding></configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <finalName>SiteParser</finalName>
+    </build>
+
 </project>
