@@ -27,24 +27,6 @@ public class SiteParserService {
         this.driver = driver;
     }
 
-
-//    /**
-//     * @return location of phantomjs
-//     */
-//    private String getPhantomjsPath() {
-//        return getClass().getResource("/phantomjs/bin/phantomjs.exe").getPath();
-//    }
-
-//    /**
-//     * @return initialized PhantomJS WebDriver
-//     */
-//    private WebDriver initWebDriver() {
-//        DesiredCapabilities caps = new DesiredCapabilities();
-//        caps.setJavascriptEnabled(true);
-//        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, getPhantomjsPath());
-//        return new PhantomJSDriver(caps);
-//    }
-
     private List<WebElement> getTargetElementsList(By by) {
         this.driver.get(targetURL);
         System.out.println("Trying to connect to -> " + targetURL);
