@@ -3,43 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <properties>
-        <java.version>1.8</java.version>
-        <junit.version>4.12</junit.version>
-    </properties>
 
     <groupId>com.shaman</groupId>
     <artifactId>HTTPParser</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <junit.version>4.12</junit.version>
+        <logback.version>1.2.3</logback.version>
+        <selenium.version>3.13.0</selenium.version>
+        <spring.version>4.3.11.RELEASE</spring.version>
+    </properties>
 
     <dependencies>
-        <!--Logger-->
+        <!--LOGGER-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${logback.version}</version>
         </dependency>
 
-        <!--Selenium-->
+        <!--SELENIUM-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.13.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
-        <!--Tests-->
+        <!--SPRING-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!--TESTS-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
-            <!--<artifactId>phantomjsdriver</artifactId>-->
-            <!--<version>1.0.1</version>-->
-        <!--</dependency>-->
 
     </dependencies>
 
@@ -48,7 +60,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <configuration><encoding>UTF-8</encoding></configuration>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
 
             <plugin>
