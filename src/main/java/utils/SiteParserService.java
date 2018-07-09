@@ -27,7 +27,7 @@ public class SiteParserService {
         this.driver = driver;
     }
 
-    private List<WebElement> getTargetElementsList(By by) {
+    public List<WebElement> getTargetElementsList(By by) {
         this.driver.get(targetURL);
         System.out.println("Trying to connect to -> " + targetURL);
         return driver.findElements(by);
