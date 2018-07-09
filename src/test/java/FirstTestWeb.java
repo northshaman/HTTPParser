@@ -26,6 +26,14 @@ public class FirstTestWeb {
         siteParserService.setTargetURL("https://ekb.zarplata.ru/resume");
         List<WebElement> resumeList = siteParserService.getDriver().findElements(By.cssSelector(".resume"));
         resumeList.forEach(r -> System.out.println(r.getText()));
-//        siteParserService.getDriver().close();
+    }
+
+    @Test
+    public void parseResumeTest() {
+        List<WebElement> resumeList = siteParserService.getDriver().findElements(By.cssSelector(".resume"));
+
+        resumeList.forEach(e -> {
+
+        });
     }
 }
