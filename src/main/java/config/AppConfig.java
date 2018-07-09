@@ -12,18 +12,17 @@ import org.springframework.context.annotation.*;
  */
 @Configuration
 @PropertySource("classpath:config.properties")
+@PropertySource("classpath:css.properties")
 @ComponentScan({"services","utils"})
 @Import(DBConfig.class)
 public class AppConfig {
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public WebDriver getPhantomJSWebDriver(@Value("${phantomJS.path}") String phantomSystemPath){
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
         caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomSystemPath);
         return new PhantomJSDriver(caps);
     }
-
-
 
 }
