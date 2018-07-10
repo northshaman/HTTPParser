@@ -59,7 +59,7 @@ public class SiteParserService {
     /**
      * initialize map for storage css selectors
      */
-    public void initCSSFromProps() {
+    private void initCSSFromProps() {
         Properties prop = null;
         InputStream is;
         try {
@@ -76,6 +76,11 @@ public class SiteParserService {
         );
     }
 
+    /**
+     * @param element Web element - source for searching
+     * @param elementName name of element for searching
+     * @return String value of searching element or null if can't find anything
+     */
     public String getElementVal(WebElement element, String elementName) {
         String elementValue = null;
         try {
@@ -86,7 +91,12 @@ public class SiteParserService {
         }
         return elementValue;
     }
-
+    /**
+     * @param element Web element - source for searching
+     * @param elementName name of element for searching
+     * @param attrName name of attribute for reading
+     * @return String value of attribute searching element or null if can't find anything
+     */
     public String getElementVal(WebElement element, String elementName, String attrName) {
         String elementValue = null;
         try {
