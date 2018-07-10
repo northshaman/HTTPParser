@@ -17,7 +17,7 @@ import org.springframework.context.annotation.*;
 @Import(DBConfig.class)
 public class AppConfig {
 
-    @Bean(destroyMethod = "close")
+    @Bean(destroyMethod = "quit")
     public WebDriver getPhantomJSWebDriver(@Value("${phantomJS.path}") String phantomSystemPath){
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);

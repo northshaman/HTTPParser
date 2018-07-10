@@ -1,8 +1,7 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -29,13 +29,14 @@ public class SiteParserService {
     @Autowired
     public SiteParserService(WebDriver driver) {
         this.driver = driver;
+        initCSSFromProps();
     }
 
     public List<WebElement> getTargetElementsList(By by) {
+        this.driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        this.driver.manage().window().setSize(new Dimension(1280, 1024));
         this.driver.get(targetURL);
-        System.out.println("Trying to connect to -> " + targetURL);
         return driver.findElements(by);
-
     }
 
     public Map<String, String> getCssPropertiesMap() {
@@ -55,6 +56,9 @@ public class SiteParserService {
         this.driver.get(targetURL);
     }
 
+    /**
+     * initialize map for storage css selectors
+     */
     public void initCSSFromProps() {
         Properties prop = null;
         InputStream is;
@@ -72,4 +76,24 @@ public class SiteParserService {
         );
     }
 
+    public String getElementVal(WebElement element, String elementName) {
+        String elementValue = null;
+        try {
+
+            elementValue = element.findElement(By.cssSelector(cssPropertiesMap.get(elementName))).getText();
+        } catch (NoSuchElementException nse) {
+//        NOP
+        }
+        return elementValue;
+    }
+
+    public String getElementVal(WebElement element, String elementName, String attrName) {
+        String elementValue = null;
+        try {
+            elementValue = element.findElement(By.cssSelector(cssPropertiesMap.get(elementName))).getAttribute(attrName);
+        } catch (NoSuchElementException nse) {
+//        NOP
+        }
+        return elementValue;
+    }
 }
