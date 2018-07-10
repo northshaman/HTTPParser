@@ -2,7 +2,6 @@ import config.AppConfig;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,7 +27,7 @@ public class FirstTestWeb {
 
     @Test
     public void getTargetElementsListTest() {
-        List<WebElement> resumeList = siteParserService.getTargetElementsList(By.cssSelector(".ui.segment.resume.resume-item"));
+        List<WebElement> resumeList = siteParserService.getTargetElementsList();
         System.out.println("Found -> " + resumeList.size() + " resume\n");
         for (int i = 0; i < 5; i++) {
             System.out.println("Resume N"+i);

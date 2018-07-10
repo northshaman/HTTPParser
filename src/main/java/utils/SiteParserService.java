@@ -18,11 +18,13 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SiteParserService {
 
-    private WebDriver driver;
-
     @Value("${phantomJS.defaultURL}")
     private String targetURL;
 
+    @Value("${css.resume}")
+    private String CSS_RESUME_ELEMENT;
+
+    private WebDriver driver;
 
     private Map<String, String> cssPropertiesMap = new HashMap<>();
 
@@ -32,11 +34,11 @@ public class SiteParserService {
         initCSSFromProps();
     }
 
-    public List<WebElement> getTargetElementsList(By by) {
+    public List<WebElement> getTargetElementsList() {
         this.driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         this.driver.manage().window().setSize(new Dimension(1280, 1024));
         this.driver.get(targetURL);
-        return driver.findElements(by);
+        return driver.findElements(By.cssSelector(CSS_RESUME_ELEMENT));
     }
 
     public Map<String, String> getCssPropertiesMap() {
@@ -77,7 +79,7 @@ public class SiteParserService {
     }
 
     /**
-     * @param element Web element - source for searching
+     * @param element     Web element - source for searching
      * @param elementName name of element for searching
      * @return String value of searching element or null if can't find anything
      */
@@ -91,10 +93,11 @@ public class SiteParserService {
         }
         return elementValue;
     }
+
     /**
-     * @param element Web element - source for searching
+     * @param element     Web element - source for searching
      * @param elementName name of element for searching
-     * @param attrName name of attribute for reading
+     * @param attrName    name of attribute for reading
      * @return String value of attribute searching element or null if can't find anything
      */
     public String getElementVal(WebElement element, String elementName, String attrName) {
