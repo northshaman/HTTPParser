@@ -1,10 +1,13 @@
 import config.AppConfig;
+import model.ResumeItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import utils.ResumeManager;
+
+import java.util.List;
 
 /**
  * Class for testing ResumeService
@@ -18,6 +21,7 @@ public class ResumeServiceTest {
 
     @Test
     public void getNewResumePack(){
-        manager.getNewResumePack();
+        List<ResumeItem> resumeItems = manager.getNewResumeList();
+        resumeItems.forEach(System.out::println);
     }
 }

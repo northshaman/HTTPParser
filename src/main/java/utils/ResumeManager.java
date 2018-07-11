@@ -5,7 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Service for operations with resume objects
@@ -21,14 +24,19 @@ public class ResumeManager {
     }
 
 
-    public void getNewResumePack() {
+    public List<ResumeItem> getNewResumeList() {
         List<WebElement> resumeList = parserService.getTargetElementsList();
-        List<ResumeItem> resumeItems;
+        List<ResumeItem> resumeItems = new ArrayList<>();
 
         resumeList.forEach(resume -> {
             String fioAge = parserService.getElementVal(resume, "fioAndAge");
-            String fio = parserService.getElementVal(resume, "fioAndAge").substring(0, fioAge.indexOf(','));
-            String age = parserService.getElementVal(resume, "fioAndAge").substring(fioAge.indexOf(',' + 1));
+            String fio = fioAge.substring(0, fioAge.indexOf(','));
+            String age = null;
+            Pattern p = Pattern.compile("-?\\d+");
+            Matcher m = p.matcher(fioAge.substring(fioAge.indexOf(',')));
+            while (m.find()) {
+                age = m.group();
+            }
             ResumeItem resumeItem = new ResumeItem(
                     Long.parseLong(parserService.getElementVal(resume, "idOriginal", "name")),
                     fio,
@@ -44,7 +52,8 @@ public class ResumeManager {
                     parserService.getElementVal(resume, "lastPositionName"),
                     parserService.getElementVal(resume, "lastPlaceDuration"),
                     parserService.getElementVal(resume, "pictureLink", "src"));
-            System.out.println(resumeItem);
+            resumeItems.add(resumeItem);
         });
+        return resumeItems;
     }
 }

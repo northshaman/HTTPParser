@@ -1,28 +1,49 @@
 package model;
 
 
+import javax.persistence.*;
+
 /**
  * Entity class for store in DB
  */
+@Entity
+@Table(name = "resume")
 public class ResumeItem {
-
+    public static final int START_SEQ = 10;
+    @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private long id;
+    @Column(name = "date_time")
     private long idOriginal;
+    @Column(name = "date_time", nullable = false)
     private String fio;
+    @Column(name = "date_time")
     private int age;
+    @Column(name = "date_time")
     private String resumeLink;
+    @Column(name = "date_time")
     private String positionName;
+    @Column(name = "date_time")
     private String lastVisit;
+    @Column(name = "date_time")
     private String city;
+    @Column(name = "date_time")
     private String wageLevel;
+    @Column(name = "date_time")
     private String education;
+    @Column(name = "date_time")
     private String experience;
+    @Column(name = "date_time")
     private String lastPlaceOfWork;
+    @Column(name = "date_time")
     private String lastPositionName;
+    @Column(name = "date_time")
     private String lastPlaceDuration;
+    @Column(name = "date_time")
     private String pictureLink;
 
-    public ResumeItem( long idOriginal, String fio, int age, String resumeLink, String positionName, String lastVisit, String city, String wageLevel, String education, String experience, String lastPlaceOfWork, String lastPositionName, String lastPlaceDuration, String pictureLink) {
+    public ResumeItem(long idOriginal, String fio, int age, String resumeLink, String positionName, String lastVisit, String city, String wageLevel, String education, String experience, String lastPlaceOfWork, String lastPositionName, String lastPlaceDuration, String pictureLink) {
         this.idOriginal = idOriginal;
         this.fio = fio;
         this.age = age;
@@ -89,22 +110,22 @@ public class ResumeItem {
 
     @Override
     public String toString() {
-        return "ResumeItem{" +
-                "id=" + id +
-                ", idOriginal=" + idOriginal +
-                ", fio='" + fio + '\'' +
-                ", age=" + age +
-                ", resumeLink='" + resumeLink + '\'' +
-                ", positionName='" + positionName + '\'' +
-                ", lastVisit='" + lastVisit + '\'' +
-                ", city='" + city + '\'' +
-                ", wageLevel='" + wageLevel + '\'' +
-                ", education='" + education + '\'' +
-                ", experience='" + experience + '\'' +
-                ", lastPlaceOfWork='" + lastPlaceOfWork + '\'' +
-                ", lastPositionName='" + lastPositionName + '\'' +
-                ", lastPlaceDuration='" + lastPlaceDuration + '\'' +
-                ", pictureLink='" + pictureLink + '\'' +
-                '}';
+        return "ResumeItem{" + "\n" +
+                "id=" + id + "\n" +
+                "idOriginal=" + idOriginal + "\n" +
+                "fio='" + fio + '\'' + "\n" +
+                "age=" + age + "\n" +
+                "resumeLink='" + resumeLink + '\'' + "\n" +
+                "positionName='" + positionName + '\'' + "\n" +
+                "lastVisit='" + lastVisit + '\'' + "\n" +
+                "city='" + city + '\'' + "\n" +
+                "wageLevel='" + wageLevel + '\'' + "\n" +
+                "education='" + education + '\'' + "\n" +
+                "experience='" + experience + '\'' + "\n" +
+                "lastPlaceOfWork='" + lastPlaceOfWork + '\'' + "\n" +
+                "lastPositionName='" + lastPositionName + '\'' + "\n" +
+                "lastPlaceDuration='" + lastPlaceDuration + '\'' + "\n" +
+                "pictureLink='" + pictureLink + '\'' + "\n" +
+                '}' + "\n";
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.*;
 @Configuration
 @PropertySource("classpath:config.properties")
 @PropertySource("classpath:css.properties")
+@PropertySource("classpath:dbprops.properties")
 @ComponentScan({"services","utils"})
 @Import(DBConfig.class)
 public class AppConfig {
