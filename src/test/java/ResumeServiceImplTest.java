@@ -1,11 +1,11 @@
-import config.AppConfig;
-import model.ResumeItem;
+import com.shaman.parser.config.AppConfig;
+import com.shaman.parser.model.ResumeItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import services.ResumeService;
+import com.shaman.parser.services.ResumeService;
 
 
 /**
@@ -15,6 +15,7 @@ import services.ResumeService;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ResumeServiceImplTest {
     @Autowired
+    private
     ResumeService resumeService;
 
     @Test

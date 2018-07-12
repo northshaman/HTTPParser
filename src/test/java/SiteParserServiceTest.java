@@ -1,4 +1,5 @@
-import config.AppConfig;
+import com.shaman.parser.config.AppConfig;
+import com.shaman.parser.utils.SiteParserService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SiteParserServiceTest {
     @Autowired
-    private utils.SiteParserService parserService;
+    private SiteParserService parserService;
 
     @Ignore
     @Test
@@ -59,7 +60,7 @@ public class SiteParserServiceTest {
             String fioAge = parserService.getElementVal(resumeList.get(i), "fioAndAge");
             System.out.println(fioAge);
             String fio = fioAge.substring(0, fioAge.indexOf(','));
-            String age=null;
+            String age="";
             Pattern p = Pattern.compile("-?\\d+");
             Matcher m = p.matcher(fioAge.substring(fioAge.indexOf(',')));
             while (m.find()) {
