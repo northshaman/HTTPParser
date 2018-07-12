@@ -14,7 +14,7 @@ import org.springframework.context.annotation.*;
 @PropertySource("classpath:config.properties")
 @PropertySource("classpath:css.properties")
 @PropertySource("classpath:db.properties")
-@ComponentScan({"com.shaman.parser"})
+@ComponentScan({"com.shaman.parser.services","com.shaman.parser.utils"})
 @Import(DBConfig.class)
 public class AppConfig {
 

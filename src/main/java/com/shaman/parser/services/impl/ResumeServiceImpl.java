@@ -13,16 +13,15 @@ import java.util.List;
  */
 @Service
 public class ResumeServiceImpl implements ResumeService{
-    private final ResumeRepository resumeRepository;
 
-    @Autowired
-    public ResumeServiceImpl(ResumeRepository resumeRepository) {
-        this.resumeRepository = resumeRepository;
-    }
+
+
 
     @Override
     public ResumeItem addResume(ResumeItem resume) {
-        return resumeRepository.saveAndFlush(resume);
+        return
+                null;
+//                resumeRepository.saveAndFlush(resume);
     }
 
     @Override
@@ -37,7 +36,9 @@ public class ResumeServiceImpl implements ResumeService{
 
     @Override
     public List<ResumeItem> getAll() {
-        return resumeRepository.findAll();
+        return
+                null;
+//                resumeRepository.findAll();
     }
 
     @Override

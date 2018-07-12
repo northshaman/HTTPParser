@@ -27,7 +27,7 @@ public class SiteParserServiceTest {
         parserService.getCssPropertiesMap().forEach((k, v) ->
                 System.out.println(k + " -> " + v));
     }
-
+@Ignore
     @Test
     public void getTargetElementsListTest() {
         List<WebElement> resumeList = parserService.getTargetElementsList();
@@ -50,7 +50,7 @@ public class SiteParserServiceTest {
             System.out.println();
         }
     }
-
+@Ignore
     @Test
     public void parseIntegerValuesTest() {
         List<WebElement> resumeList = parserService.getTargetElementsList();

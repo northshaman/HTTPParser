@@ -1,5 +1,6 @@
 import com.shaman.parser.config.AppConfig;
 import com.shaman.parser.model.ResumeItem;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ResumeServiceTest {
     @Autowired
     private
     ResumeManager manager;
-
+@Ignore
     @Test
     public void getNewResumePack(){
         List<ResumeItem> resumeItems = manager.getNewResumeList();

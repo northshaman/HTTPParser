@@ -25,8 +25,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan()
-@EnableJpaRepositories("com.shaman.parser.repository")
+//@ComponentScan()
+//@EnableJpaRepositories("com.shaman.parser.repository")
 public class DBConfig {
 
 //    @Value("${db.url}")
@@ -53,16 +53,16 @@ public class DBConfig {
 //    @Value("${db.hibernate.hbm2ddl.auto}")
     private String HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
 
-    @Bean
-    public DataSource dataSource(){
-        System.out.println(PROP_DATABASE_DRIVER);
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(PROP_DATABASE_DRIVER);
-        dataSource.setUrl(DATABASE_URL);
-        dataSource.setUsername(DATABASE_USERNAME);
-        dataSource.setPassword(DATABASE_PASSWORD);
-        return dataSource;
-    }
+//    @Bean
+//    public DataSource dataSource(){
+//        System.out.println(PROP_DATABASE_DRIVER);
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(PROP_DATABASE_DRIVER);
+//        dataSource.setUrl(DATABASE_URL);
+//        dataSource.setUsername(DATABASE_USERNAME);
+//        dataSource.setPassword(DATABASE_PASSWORD);
+//        return dataSource;
+//    }
 
 //    @Bean
 //    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -75,20 +75,20 @@ public class DBConfig {
 //
 //        return entityManagerFactoryBean;
 //    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
-
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(getHibernateProperties());
-
-        return em;
-    }
+//
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+//        LocalContainerEntityManagerFactoryBean em
+//                = new LocalContainerEntityManagerFactoryBean();
+//        em.setDataSource(dataSource());
+//        em.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
+//
+//        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        em.setJpaVendorAdapter(vendorAdapter);
+//        em.setJpaProperties(getHibernateProperties());
+//
+//        return em;
+//    }
 
 //    @Bean
 //    public JpaTransactionManager transactionManager() {
@@ -98,25 +98,25 @@ public class DBConfig {
 //        return transactionManager;
 //    }
 
-    @Bean
-    public PlatformTransactionManager transactionManager(
-            EntityManagerFactory emf){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-
-        return transactionManager;
-    }
-
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
-    private Properties getHibernateProperties() {
-        Properties properties = new Properties();
-        properties.put(HIBERNATE_DIALECT, HIBERNATE_DIALECT);
-        properties.put(HIBERNATE_SHOW_SQL, HIBERNATE_SHOW_SQL);
-        properties.put(HIBERNATE_HBM2DDL_AUTO, HIBERNATE_HBM2DDL_AUTO);
-
-        return properties;
-    }
+//    @Bean
+//    public PlatformTransactionManager transactionManager(
+//            EntityManagerFactory emf){
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(emf);
+//
+//        return transactionManager;
+//    }
+//
+//    @Bean
+//    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
+//    private Properties getHibernateProperties() {
+//        Properties properties = new Properties();
+//        properties.put(HIBERNATE_DIALECT, HIBERNATE_DIALECT);
+//        properties.put(HIBERNATE_SHOW_SQL, HIBERNATE_SHOW_SQL);
+//        properties.put(HIBERNATE_HBM2DDL_AUTO, HIBERNATE_HBM2DDL_AUTO);
+//
+//        return properties;
+//    }
 }
