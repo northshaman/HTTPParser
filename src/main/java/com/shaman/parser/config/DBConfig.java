@@ -1,5 +1,6 @@
 package com.shaman.parser.config;
 
+import org.omg.CORBA.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -23,11 +25,14 @@ import java.util.Properties;
  * Java configuration class for DB
  */
 @Configuration
-@PropertySource("classpath:db.properties")
+@EnableJpaRepositories("com.shaman.parser.repository")
 @EnableTransactionManagement
-//@ComponentScan()
-//@EnableJpaRepositories("com.shaman.parser.repository")
+@PropertySource("classpath:db.properties")
+@ComponentScan("com.shaman.parser")
 public class DBConfig {
+
+    @Resource
+    private Environment env;
 
 //    @Value("${db.url}")
     private String DATABASE_URL = "jdbc:postgresql://localhost:5432/resume";
@@ -53,16 +58,15 @@ public class DBConfig {
 //    @Value("${db.hibernate.hbm2ddl.auto}")
     private String HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
 
-//    @Bean
-//    public DataSource dataSource(){
-//        System.out.println(PROP_DATABASE_DRIVER);
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(PROP_DATABASE_DRIVER);
-//        dataSource.setUrl(DATABASE_URL);
-//        dataSource.setUsername(DATABASE_USERNAME);
-//        dataSource.setPassword(DATABASE_PASSWORD);
-//        return dataSource;
-//    }
+    @Bean
+    public DataSource dataSource(){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(PROP_DATABASE_DRIVER);
+        dataSource.setUrl(DATABASE_URL);
+        dataSource.setUsername(DATABASE_USERNAME);
+        dataSource.setPassword(DATABASE_PASSWORD);
+        return dataSource;
+    }
 
 //    @Bean
 //    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
