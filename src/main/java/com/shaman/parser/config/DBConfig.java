@@ -1,26 +1,24 @@
 package com.shaman.parser.config;
 
-import org.omg.CORBA.Environment;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-import java.util.Properties;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 /**
  * Java configuration class for DB
  */
@@ -34,93 +32,59 @@ public class DBConfig {
     @Resource
     private Environment env;
 
-//    @Value("${db.url}")
-    private String DATABASE_URL = "jdbc:postgresql://localhost:5432/resume";
-
-//    @Value("${db.username}")
-    private String DATABASE_USERNAME = "user";
-
-//   @Value("${db.password}")
-    private String DATABASE_PASSWORD = "password" ;
-
-//    @Value("${db.driver}")
-    private String PROP_DATABASE_DRIVER= "org.postgresql.Driver";
-
-//    @Value("${db.hibernate.dialect}")
-    private String HIBERNATE_DIALECT = "db.hibernate.dialect";
-
-//    @Value("${db.hibernate.show_sql}")
-    private String HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
-
-//    @Value("${db.entitymanager.packages.to.scan}")
-    private String ENTITYMANAGER_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
-
-//    @Value("${db.hibernate.hbm2ddl.auto}")
-    private String HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
-
     @Bean
-    public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(PROP_DATABASE_DRIVER);
-        dataSource.setUrl(DATABASE_URL);
-        dataSource.setUsername(DATABASE_USERNAME);
-        dataSource.setPassword(DATABASE_PASSWORD);
+    public DataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(env.getRequiredProperty("db.url"));
+        dataSource.setDriverClassName(env.getRequiredProperty("db.driver"));
+        dataSource.setUsername(env.getRequiredProperty("db.username"));
+        dataSource.setPassword(env.getRequiredProperty("db.password"));
+
+        dataSource.setInitialSize(Integer.valueOf(env.getRequiredProperty("db.initialSize")));
+        dataSource.setMinIdle(Integer.valueOf(env.getRequiredProperty("db.minIdle")));
+        dataSource.setMaxIdle(Integer.valueOf(env.getRequiredProperty("db.maxIdle")));
+        dataSource.setTimeBetweenEvictionRunsMillis(Long.valueOf(env.getRequiredProperty("db.timeBetweenEvictionRunsMillis")));
+        dataSource.setMinEvictableIdleTimeMillis(Long.valueOf(env.getRequiredProperty("db.minEvictableIdleTimeMillis")));
+        dataSource.setTestOnBorrow(Boolean.valueOf(env.getRequiredProperty("db.testOnBorrow")));
+        dataSource.setValidationQuery(env.getRequiredProperty("db.validationQuery"));
+
         return dataSource;
     }
 
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-//        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-//        entityManagerFactoryBean.setDataSource(dataSource());
-//        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-//        entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
-//
-//        entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-//
-//        return entityManagerFactoryBean;
-//    }
-//
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-//        LocalContainerEntityManagerFactoryBean em
-//                = new LocalContainerEntityManagerFactoryBean();
-//        em.setDataSource(dataSource());
-//        em.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
-//
-//        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        em.setJpaVendorAdapter(vendorAdapter);
-//        em.setJpaProperties(getHibernateProperties());
-//
-//        return em;
-//    }
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(getHibernateProperties());
 
-//    @Bean
-//    public JpaTransactionManager transactionManager() {
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-//
-//        return transactionManager;
-//    }
+        return em;
+    }
 
-//    @Bean
-//    public PlatformTransactionManager transactionManager(
-//            EntityManagerFactory emf){
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//        transactionManager.setEntityManagerFactory(emf);
-//
-//        return transactionManager;
-//    }
-//
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager manager = new JpaTransactionManager();
+        manager.setEntityManagerFactory(entityManagerFactory().getObject());
+        return manager;
+    }
+
+
 //    @Bean
 //    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
 //        return new PersistenceExceptionTranslationPostProcessor();
 //    }
-//    private Properties getHibernateProperties() {
-//        Properties properties = new Properties();
-//        properties.put(HIBERNATE_DIALECT, HIBERNATE_DIALECT);
-//        properties.put(HIBERNATE_SHOW_SQL, HIBERNATE_SHOW_SQL);
-//        properties.put(HIBERNATE_HBM2DDL_AUTO, HIBERNATE_HBM2DDL_AUTO);
-//
-//        return properties;
-//    }
+
+
+    private Properties getHibernateProperties() {
+        Properties properties = new Properties();
+        InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
+        try {
+            properties.load(is);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Can't load Hibernate properties", e);
+        }
+        return properties;
+    }
 }

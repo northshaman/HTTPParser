@@ -1,9 +1,7 @@
 package com.shaman.parser.services.impl;
 
-import com.shaman.parser.model.ResumeItem;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.shaman.parser.entity.ResumeItem;
 import org.springframework.stereotype.Service;
-import com.shaman.parser.repository.ResumeRepository;
 import com.shaman.parser.services.ResumeService;
 
 import java.util.List;

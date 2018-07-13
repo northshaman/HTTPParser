@@ -1,5 +1,5 @@
 import com.shaman.parser.config.AppConfig;
-import com.shaman.parser.model.ResumeItem;
+import com.shaman.parser.entity.ResumeItem;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

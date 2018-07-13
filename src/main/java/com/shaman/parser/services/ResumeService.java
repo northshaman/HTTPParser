@@ -1,6 +1,6 @@
 package com.shaman.parser.services;
 
-import com.shaman.parser.model.ResumeItem;
+import com.shaman.parser.entity.ResumeItem;
 
 import java.util.List;
 

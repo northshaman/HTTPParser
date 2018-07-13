@@ -1,6 +1,6 @@
 package com.shaman.parser.utils;
 
-import com.shaman.parser.model.ResumeItem;
+import com.shaman.parser.entity.ResumeItem;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,22 +37,22 @@ public class ResumeManager {
             while (m.find()) {
                 age = m.group();
             }
-            ResumeItem resumeItem = new ResumeItem(
-                    Long.parseLong(parserService.getElementVal(resume, "idOriginal", "name")),
-                    fio,
-                    Integer.parseInt(age),
-                    parserService.getElementVal(resume, "resumeLink", "href"),
-                    parserService.getElementVal(resume, "positionName"),
-                    parserService.getElementVal(resume, "lastVisit"),
-                    parserService.getElementVal(resume, "city"),
-                    parserService.getElementVal(resume, "wageLevel"),
-                    parserService.getElementVal(resume, "education"),
-                    parserService.getElementVal(resume, "experience"),
-                    parserService.getElementVal(resume, "lastPlaceOfWork"),
-                    parserService.getElementVal(resume, "lastPositionName"),
-                    parserService.getElementVal(resume, "lastPlaceDuration"),
-                    parserService.getElementVal(resume, "pictureLink", "src"));
-            resumeItems.add(resumeItem);
+//            ResumeItem resumeItem = new ResumeItem(
+//                    Long.parseLong(parserService.getElementVal(resume, "idOriginal", "name")),
+//                    fio,
+//                    Integer.parseInt(age),
+//                    parserService.getElementVal(resume, "resumeLink", "href"),
+//                    parserService.getElementVal(resume, "positionName"),
+//                    parserService.getElementVal(resume, "lastVisit"),
+//                    parserService.getElementVal(resume, "city"),
+//                    parserService.getElementVal(resume, "wageLevel"),
+//                    parserService.getElementVal(resume, "education"),
+//                    parserService.getElementVal(resume, "experience"),
+//                    parserService.getElementVal(resume, "lastPlaceOfWork"),
+//                    parserService.getElementVal(resume, "lastPositionName"),
+//                    parserService.getElementVal(resume, "lastPlaceDuration"),
+//                    parserService.getElementVal(resume, "pictureLink", "src"));
+//            resumeItems.add(resumeItem);
         });
         return resumeItems;
     }

@@ -1,5 +1,7 @@
-package com.shaman.parser.model;
+package com.shaman.parser.entity;
 
+
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -9,57 +11,55 @@ import javax.persistence.*;
 @Entity
 @Table(name = "resume")
 public class ResumeItem {
-    private static final int START_SEQ = 10;
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment",strategy = "increment")
     private long id;
-    @Column(name = "date_time")
+
+    @Column(name = "idOriginal",nullable = false)
     private long idOriginal;
-    @Column(name = "date_time", nullable = false)
+
+    @Column(name = "fio", nullable = false)
     private String fio;
-    @Column(name = "date_time")
+
+    @Column(name = "age")
     private int age;
-    @Column(name = "date_time")
+
+    @Column(name = "resumeLink")
     private String resumeLink;
-    @Column(name = "date_time")
+
+    @Column(name = "positionName")
     private String positionName;
-    @Column(name = "date_time")
+
+    @Column(name = "lastVisit")
     private String lastVisit;
-    @Column(name = "date_time")
+
+    @Column(name = "city")
     private String city;
-    @Column(name = "date_time")
+
+    @Column(name = "wageLevel")
     private String wageLevel;
-    @Column(name = "date_time")
+
+    @Column(name = "education")
     private String education;
-    @Column(name = "date_time")
+
+    @Column(name = "experience")
     private String experience;
-    @Column(name = "date_time")
+
+    @Column(name = "lastPlaceOfWork")
     private String lastPlaceOfWork;
-    @Column(name = "date_time")
+
+    @Column(name = "lastPositionName")
     private String lastPositionName;
-    @Column(name = "date_time")
+
+    @Column(name = "lastPlaceDuration")
     private String lastPlaceDuration;
-    @Column(name = "date_time")
+
+    @Column(name = "pictureLink")
     private String pictureLink;
 
-    public ResumeItem(long idOriginal, String fio, int age, String resumeLink, String positionName, String lastVisit, String city, String wageLevel, String education, String experience, String lastPlaceOfWork, String lastPositionName, String lastPlaceDuration, String pictureLink) {
-        this.idOriginal = idOriginal;
-        this.fio = fio;
-        this.age = age;
-        this.resumeLink = resumeLink;
-        this.positionName = positionName;
-        this.lastVisit = lastVisit;
-        this.city = city;
-        this.wageLevel = wageLevel;
-        this.education = education;
-        this.experience = experience;
-        this.lastPlaceOfWork = lastPlaceOfWork;
-        this.lastPositionName = lastPositionName;
-        this.lastPlaceDuration = lastPlaceDuration;
-        this.pictureLink = pictureLink;
+    public ResumeItem() {
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,6 +87,7 @@ public class ResumeItem {
             return false;
         return pictureLink != null ? pictureLink.equals(that.pictureLink) : that.pictureLink == null;
     }
+
 
     @Override
     public int hashCode() {
@@ -127,5 +128,125 @@ public class ResumeItem {
                 "lastPlaceDuration='" + lastPlaceDuration + '\'' + "\n" +
                 "pictureLink='" + pictureLink + '\'' + "\n" +
                 '}' + "\n";
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdOriginal() {
+        return idOriginal;
+    }
+
+    public void setIdOriginal(long idOriginal) {
+        this.idOriginal = idOriginal;
+    }
+
+    public String getFio() {
+        return fio;
+    }
+
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getResumeLink() {
+        return resumeLink;
+    }
+
+    public void setResumeLink(String resumeLink) {
+        this.resumeLink = resumeLink;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    public String getLastVisit() {
+        return lastVisit;
+    }
+
+    public void setLastVisit(String lastVisit) {
+        this.lastVisit = lastVisit;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getWageLevel() {
+        return wageLevel;
+    }
+
+    public void setWageLevel(String wageLevel) {
+        this.wageLevel = wageLevel;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getLastPlaceOfWork() {
+        return lastPlaceOfWork;
+    }
+
+    public void setLastPlaceOfWork(String lastPlaceOfWork) {
+        this.lastPlaceOfWork = lastPlaceOfWork;
+    }
+
+    public String getLastPositionName() {
+        return lastPositionName;
+    }
+
+    public void setLastPositionName(String lastPositionName) {
+        this.lastPositionName = lastPositionName;
+    }
+
+    public String getLastPlaceDuration() {
+        return lastPlaceDuration;
+    }
+
+    public void setLastPlaceDuration(String lastPlaceDuration) {
+        this.lastPlaceDuration = lastPlaceDuration;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
     }
 }
